@@ -2,13 +2,13 @@
 
 import {
   DndContext,
-  closestCorners, // mudança aqui
+  closestCorners,
   KeyboardSensor,
   PointerSensor,
+  TouchSensor,
   useSensor,
   useSensors,
   DragEndEvent,
-  DragOverEvent,
   DragStartEvent
 } from "@dnd-kit/core";
 import {
@@ -16,6 +16,7 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy
 } from "@dnd-kit/sortable";
+import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { Task, Day } from "@/types/task";
 import SortableTaskCard from "../TaskCard/SortableTaskCard";
 import styles from "./DayColumn.module.css";
@@ -41,7 +42,13 @@ export default function DayColumn({
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        distance: 8, // pequeno movimento antes de ativar o drag
+        distance: 8,
+      },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 250,
+        tolerance: 5,
       },
     }),
     useSensor(KeyboardSensor, {
@@ -49,7 +56,6 @@ export default function DayColumn({
     })
   );
 
-  // Ordenar as tasks pelo campo 'order'
   const sortedTasks = [...tasks].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 
   function handleDragStart(event: DragStartEvent) {
@@ -78,6 +84,7 @@ export default function DayColumn({
         collisionDetection={closestCorners}
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
+        modifiers={[restrictToVerticalAxis]}
       >
         <SortableContext
           items={sortedTasks.map(t => t.id)}
