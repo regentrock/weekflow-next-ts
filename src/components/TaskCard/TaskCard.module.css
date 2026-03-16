@@ -191,7 +191,7 @@
 
 @media (max-width: 768px){
   .title{
-    font-size: 1.55rem;
+    font-size: 1.5rem;
   }
 
   .details{
@@ -199,16 +199,16 @@
   }
 
   .priorityDot{
-    width: 1rem;
-    height: 1rem;
+    width: 0.9rem;
+    height: 0.9rem;
     margin-right: 0.4rem;
   }
 
   .priority{
-    font-size: 1.25em;
+    font-size: 1.15em;
   }
 
   .time{
-    font-size: 1.25rem;
+    font-size: 1.2rem;
   }
 }
