@@ -16,7 +16,7 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy
 } from "@dnd-kit/sortable";
-import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
+// import { restrictToVerticalAxis } from "@dnd-kit/modifiers"; // removido
 import { Task, Day } from "@/types/task";
 import SortableTaskCard from "../TaskCard/SortableTaskCard";
 import styles from "./DayColumn.module.css";
@@ -42,12 +42,12 @@ export default function DayColumn({
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        distance: 8,
+        distance: 8, // para mouse
       },
     }),
     useSensor(TouchSensor, {
       activationConstraint: {
-        delay: 250,
+        delay: 250,      // evita conflito com scroll no mobile
         tolerance: 5,
       },
     }),
@@ -84,7 +84,7 @@ export default function DayColumn({
         collisionDetection={closestCorners}
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
-        modifiers={[restrictToVerticalAxis]}
+        // modifiers removido – agora o movimento é livre
       >
         <SortableContext
           items={sortedTasks.map(t => t.id)}

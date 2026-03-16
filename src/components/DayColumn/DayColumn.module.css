@@ -60,6 +60,10 @@
 }
 
 @media (max-width: 767px) {
+  .container{
+    margin-bottom: 0;
+  }
+
   .tasks {
     grid-template-columns: 1fr;
     gap: 0.75rem;
@@ -70,7 +74,7 @@
   }
 
   .title {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     margin-bottom: 1rem;
     border-bottom: none;
   }

@@ -31,14 +31,13 @@ export default function TaskForm({ addTask, onCancel }: Props) {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!title.trim()) {
-      setError("O título é obrigatório")
+      setError("The title is required")
       return
     }
     setError("")
 
-    // Valida minutos entre 0 e 59
     if (minutes < 0 || minutes > 59) {
-      setError("Minutos devem estar entre 0 e 59")
+      setError("Minutes must be between 0 and 59")
       return
     }
 
@@ -77,14 +76,14 @@ export default function TaskForm({ addTask, onCancel }: Props) {
     >
       <div className={styles.formContainer}>
         <form className={styles.form} onSubmit={handleSubmit}>
-          <h3>Adicionar Tarefa</h3>
+          <h3>Add Task</h3>
 
           <div className={styles.field}>
             <label htmlFor="title">Título</label>
             <input
               id="title"
               type="text"
-              placeholder="Ex.: Reunião com equipe"
+              placeholder="Ex.: Business meeting"
               value={title}
               onChange={e => setTitle(e.target.value)}
               autoFocus
@@ -94,7 +93,7 @@ export default function TaskForm({ addTask, onCancel }: Props) {
           </div>
 
           <div className={styles.field}>
-            <label htmlFor="day">Dia</label>
+            <label htmlFor="day">Day</label>
             <select
               id="day"
               value={day}
@@ -107,21 +106,21 @@ export default function TaskForm({ addTask, onCancel }: Props) {
           </div>
 
           <div className={styles.field}>
-            <label htmlFor="priority">Prioridade</label>
+            <label htmlFor="priority">Priority</label>
             <select
               id="priority"
               value={priority}
               onChange={e => setPriority(e.target.value as Priority)}
             >
-              <option value="low">Baixa</option>
-              <option value="medium">Média</option>
-              <option value="high">Alta</option>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
             </select>
           </div>
 
           <div className={styles.row}>
             <div className={styles.field}>
-              <label htmlFor="hours">Horas</label>
+              <label htmlFor="hours">Hours (Duration)</label>
               <input
                 id="hours"
                 type="number"
@@ -132,7 +131,7 @@ export default function TaskForm({ addTask, onCancel }: Props) {
             </div>
 
             <div className={styles.field}>
-              <label htmlFor="minutes">Minutos</label>
+              <label htmlFor="minutes">Minutes</label>
               <input
                 id="minutes"
                 type="number"
@@ -144,21 +143,10 @@ export default function TaskForm({ addTask, onCancel }: Props) {
             </div>
           </div>
 
-          <div className={styles.checkboxContainer}>
-            <label>
-              <input
-                type="checkbox"
-                checked={completed}
-                onChange={e => setCompleted(e.target.checked)}
-              />
-              Concluída
-            </label>
-          </div>
-
           <div className={styles.actions}>
-            <button type="submit">Adicionar</button>
+            <button type="submit">Add</button>
             <button type="button" onClick={onCancel}>
-              Cancelar
+              Cancel
             </button>
           </div>
         </form>
