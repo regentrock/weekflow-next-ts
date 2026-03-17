@@ -1,24 +1,42 @@
 /* Board.module.css */
 .container {
   max-width: 90vw;
-  min-height: 100vh;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: row;
   margin: 0 auto;
   padding: 1.5rem;
-  background: linear-gradient(to right, #C6CDE5, #d4d5ea);
+  background: #D6E4F0;
+  gap: 1.5rem;
+}
+
+.containerLeft {
+  flex: 2;
+  min-width: 0;
+  overflow-y: auto; /* se necessário, mas geralmente não precisa */
+}
+
+.containerRight {
+  flex: 1;
+  min-width: 0;
+  max-height: calc(80vh - 3rem); /* ajuste conforme necessário */
+  overflow-y: auto;
+  position: sticky;
+  top: 1rem; /* opcional, para manter visível ao rolar */
 }
 
 .daysNav {
   display: flex;
   gap: 0.25rem;
-  border-bottom: 2px solid var(--gray-200);
+  border-bottom: 2px solid var(--gray-100);
   margin-bottom: 2rem;
   overflow-x: auto;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .daysNav::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
+  display: none;
 }
 
 .daysNav button {
@@ -26,7 +44,7 @@
   background: transparent;
   border: none;
   font-weight: 500;
-  color: var(--gray-500);
+  color: var(--gray-600);
   cursor: pointer;
   position: relative;
   transition: var(--transition);
@@ -48,7 +66,7 @@
 }
 
 .daysNav button:hover {
-  color: var(--gray-700);
+  color: var(--gray-800);
 }
 
 .daysNav button:hover::after {
@@ -64,19 +82,69 @@
   transform: scaleX(1) !important;
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
+/* Botão toggle para mobile */
+.toggleOverviewBtn {
+  display: none;
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: var(--transition);
+}
+
+.toggleOverviewBtn:hover {
+  background: var(--primary-dark);
+}
+
+/* Controle de visibilidade do overview em mobile */
+.overviewWrapper {
+  display: block;
+}
+
+@media (max-width: 1024px) {
   .container {
-    max-width: 100vw;
-    padding: 0 1rem;
+    flex-direction: column;
+    max-width: 95vw;
+    padding: 1rem;
   }
 
-  .daysNav{
-    overflow-x: scroll;
+  .containerLeft,
+  .containerRight {
+    flex: auto;
+    width: 100%;
+    max-height: none;
+    overflow-y: visible;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    min-width: 100vw;
+    padding: 0.75rem;
+    gap: 2.25rem;
+    margin: 0;
   }
 
   .daysNav button {
-    padding: 1.6em 2em 1.2em 2em;
-    font-size: 1.rem;
+    padding: 1.2rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .toggleOverviewBtn {
+    display: block;
+  }
+
+  .overviewWrapper {
+    display: none;
+  }
+
+  .overviewWrapper.visible {
+    display: block;
   }
 }

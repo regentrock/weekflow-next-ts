@@ -21,6 +21,7 @@ const days: Day[] = [
 
 export default function TaskForm({ addTask, onCancel }: Props) {
   const [title, setTitle] = useState("")
+  const [description, setDescription] = useState("") // novo estado
   const [day, setDay] = useState<Day>("Monday")
   const [priority, setPriority] = useState<Priority>("medium")
   const [completed, setCompleted] = useState(false)
@@ -46,6 +47,7 @@ export default function TaskForm({ addTask, onCancel }: Props) {
     const newTask: Task = {
       id: crypto.randomUUID(),
       title: title.trim(),
+      description: description.trim() || undefined, // só inclui se não for vazio
       day,
       priority,
       completed,
@@ -79,17 +81,30 @@ export default function TaskForm({ addTask, onCancel }: Props) {
           <h3>Add Task</h3>
 
           <div className={styles.field}>
-            <label htmlFor="title">Título</label>
+            <label htmlFor="title">Title *</label>
             <input
               id="title"
               type="text"
-              placeholder="Ex.: Business meeting"
+              placeholder="e.g., Business meeting"
               value={title}
               onChange={e => setTitle(e.target.value)}
               autoFocus
               className={error ? styles.error : ""}
             />
             {error && <span className={styles.errorMessage}>{error}</span>}
+          </div>
+
+          {/* Novo campo de descrição */}
+          <div className={styles.field}>
+            <label htmlFor="description">Description (optional)</label>
+            <textarea
+              id="description"
+              placeholder="Add details about this task..."
+              value={description}
+              onChange={e => setDescription(e.target.value)}
+              rows={3}
+              className={styles.textarea}
+            />
           </div>
 
           <div className={styles.field}>
@@ -120,7 +135,7 @@ export default function TaskForm({ addTask, onCancel }: Props) {
 
           <div className={styles.row}>
             <div className={styles.field}>
-              <label htmlFor="hours">Hours (Duration)</label>
+              <label htmlFor="hours">Hours</label>
               <input
                 id="hours"
                 type="number"

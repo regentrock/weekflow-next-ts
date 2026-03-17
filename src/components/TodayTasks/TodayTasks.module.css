@@ -1,8 +1,8 @@
 .container {
-  background: #DFE0EF;
+  background: #F6F6F6;
   border-bottom: 1px solid var(--gray-200);
   box-shadow: 0px 8px 12px rgba(198, 198, 198, 0.2);
-  padding: 1.5rem;
+  padding: 1.2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -55,7 +55,7 @@
 .progressBar {
   flex: 1;
   height: 0.375rem;
-  background: var(--gray-100);
+  background: var(--gray-200);
   border-radius: 10px;
   overflow: hidden;
 }
@@ -70,7 +70,6 @@
 .empty {
   font-size: 0.9rem;
   color: var(--gray-400);
-  font-style: italic;
 }
 
 @media (max-width: 640px) {

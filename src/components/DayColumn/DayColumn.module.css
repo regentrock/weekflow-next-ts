@@ -4,7 +4,7 @@
   min-height: 200px;
 }
 
-.title {
+.title { 
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -13,7 +13,7 @@
   color: var(--gray-800);
   margin-bottom: 1.5rem;
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid var(--gray-200);
+  border-bottom: 2px solid var(--gray-100);
   letter-spacing: 0.3px;
   text-transform: uppercase;
 }
@@ -37,7 +37,6 @@
   font-size: 0.9rem;
   text-align: center;
   padding: 2.5rem 1rem;
-  background: var(--gray-50);
   border: 1px dashed var(--gray-300);
   font-weight: 400;
   letter-spacing: 0.3px;
@@ -47,8 +46,8 @@
 
 @media (min-width: 1024px) {
   .tasks {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.25rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
   }
 }
 

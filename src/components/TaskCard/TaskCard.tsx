@@ -77,6 +77,13 @@ export default function TaskCard({ task, toggleTask, deleteTask }: Props) {
         </button>
       </div>
 
+      {/* Descrição opcional */}
+      {task.description && (
+        <div className={styles.description}>
+          {task.description}
+        </div>
+      )}
+
       {menuOpen && (
         <div className={styles.menu}>
           <button

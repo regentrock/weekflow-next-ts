@@ -1,9 +1,10 @@
 /* Footer.module.css */
 .footer {
-  background: var(--gray-900);
+  background: #163172;
   color: white;
   padding: 3rem 0;
   width: 100%;
+  margin: 0;
 }
 
 .container {
@@ -58,7 +59,6 @@
 @media (max-width: 768px) {
   .footer {
     padding: 2.5rem 0;
-    margin-top: 3rem;
   }
 
   .content {
