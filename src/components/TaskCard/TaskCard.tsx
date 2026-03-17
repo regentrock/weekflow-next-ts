@@ -10,9 +10,10 @@ type Props = {
   task: Task
   toggleTask: (id: string) => void
   deleteTask: (id: string) => void
+  onEdit: (task: Task) => void // nova prop
 }
 
-export default function TaskCard({ task, toggleTask, deleteTask }: Props) {
+export default function TaskCard({ task, toggleTask, deleteTask, onEdit }: Props) {
   const [menuOpen, setMenuOpen] = useState(false)
 
   const {
@@ -37,6 +38,11 @@ export default function TaskCard({ task, toggleTask, deleteTask }: Props) {
     const remainingMinutes = minutes % 60
     if (remainingMinutes === 0) return `${hours}h`
     return `${hours}h${remainingMinutes}`
+  }
+
+  const handleEdit = () => {
+    onEdit(task)
+    setMenuOpen(false)
   }
 
   return (
@@ -77,7 +83,6 @@ export default function TaskCard({ task, toggleTask, deleteTask }: Props) {
         </button>
       </div>
 
-      {/* Descrição opcional */}
       {task.description && (
         <div className={styles.description}>
           {task.description}
@@ -87,13 +92,19 @@ export default function TaskCard({ task, toggleTask, deleteTask }: Props) {
       {menuOpen && (
         <div className={styles.menu}>
           <button
+            className={styles.editBtn}
+            onClick={handleEdit}
+          >
+            Edit
+          </button>
+          <button
             className={styles.deleteBtn}
             onClick={(e) => {
               e.stopPropagation()
               deleteTask(task.id)
             }}
           >
-            Excluir
+            Delete
           </button>
         </div>
       )}

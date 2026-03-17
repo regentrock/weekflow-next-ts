@@ -10,15 +10,15 @@ export default function Footer() {
           <div>
             <h3 className={styles.logo}>WeekFlow</h3>
             <p className={styles.copyright}>
-              © {currentYear} WeekFlow. Todos os direitos reservados.
+              © {currentYear} WeekFlow. All rights reserved.
             </p>
           </div>
 
           <div className={styles.links}>
-            <a href="#">Sobre</a>
-            <a href="#">Ajuda</a>
-            <a href="#">Termos</a>
-            <a href="#">Contato</a>
+            <a href="#">About</a>
+            <a href="#">Help</a>
+            <a href="#">Terms</a>
+            <a href="#">Contact</a>
           </div>
         </div>
       </div>

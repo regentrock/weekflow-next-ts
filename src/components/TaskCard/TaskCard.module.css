@@ -148,6 +148,26 @@
   background: #FEE2E2;
 }
 
+/* Adicionar no TaskCard.module.css */
+.editBtn {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: none;
+  color: var(--primary);
+  font-weight: 500;
+  text-align: left;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 0.9rem;
+}
+
+.editBtn:hover {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+}
+
 /* Novos estilos para detalhes (prioridade e tempo) */
 .details {
   display: flex;

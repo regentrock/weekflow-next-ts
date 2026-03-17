@@ -1,12 +1,13 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Day, Priority, Task } from "@/types/task"
 import styles from "./TaskForm.module.css"
 
 type Props = {
   addTask: (task: Task) => void
   onCancel: () => void
+  editingTask?: Task | null // tarefa para edição
 }
 
 const days: Day[] = [
@@ -19,15 +20,38 @@ const days: Day[] = [
   "Sunday"
 ]
 
-export default function TaskForm({ addTask, onCancel }: Props) {
+export default function TaskForm({ addTask, onCancel, editingTask }: Props) {
   const [title, setTitle] = useState("")
-  const [description, setDescription] = useState("") // novo estado
+  const [description, setDescription] = useState("")
   const [day, setDay] = useState<Day>("Monday")
   const [priority, setPriority] = useState<Priority>("medium")
   const [completed, setCompleted] = useState(false)
   const [hours, setHours] = useState(0)
   const [minutes, setMinutes] = useState(30)
   const [error, setError] = useState("")
+
+  // Preencher formulário se estiver editando
+  useEffect(() => {
+    if (editingTask) {
+      setTitle(editingTask.title)
+      setDescription(editingTask.description || "")
+      setDay(editingTask.day)
+      setPriority(editingTask.priority)
+      setCompleted(editingTask.completed)
+      const total = editingTask.estimatedTime
+      setHours(Math.floor(total / 60))
+      setMinutes(total % 60)
+    } else {
+      // Reset para valores padrão
+      setTitle("")
+      setDescription("")
+      setDay("Monday")
+      setPriority("medium")
+      setCompleted(false)
+      setHours(0)
+      setMinutes(30)
+    }
+  }, [editingTask])
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -44,17 +68,17 @@ export default function TaskForm({ addTask, onCancel }: Props) {
 
     const totalMinutes = hours * 60 + minutes
 
-    const newTask: Task = {
-      id: crypto.randomUUID(),
+    const task: Task = {
+      id: editingTask?.id || crypto.randomUUID(),
       title: title.trim(),
-      description: description.trim() || undefined, // só inclui se não for vazio
+      description: description.trim() || undefined,
       day,
       priority,
       completed,
       estimatedTime: totalMinutes
     }
 
-    addTask(newTask)
+    addTask(task)
   }
 
   function handleOverlayClick(e: React.MouseEvent<HTMLDivElement>) {
@@ -78,7 +102,7 @@ export default function TaskForm({ addTask, onCancel }: Props) {
     >
       <div className={styles.formContainer}>
         <form className={styles.form} onSubmit={handleSubmit}>
-          <h3>Add Task</h3>
+          <h3>{editingTask ? "Edit Task" : "Add Task"}</h3>
 
           <div className={styles.field}>
             <label htmlFor="title">Title *</label>
@@ -94,7 +118,6 @@ export default function TaskForm({ addTask, onCancel }: Props) {
             {error && <span className={styles.errorMessage}>{error}</span>}
           </div>
 
-          {/* Novo campo de descrição */}
           <div className={styles.field}>
             <label htmlFor="description">Description (optional)</label>
             <textarea
@@ -103,7 +126,6 @@ export default function TaskForm({ addTask, onCancel }: Props) {
               value={description}
               onChange={e => setDescription(e.target.value)}
               rows={3}
-              className={styles.textarea}
             />
           </div>
 
@@ -144,7 +166,6 @@ export default function TaskForm({ addTask, onCancel }: Props) {
                 onChange={e => setHours(Math.max(0, parseInt(e.target.value) || 0))}
               />
             </div>
-
             <div className={styles.field}>
               <label htmlFor="minutes">Minutes</label>
               <input
@@ -159,10 +180,8 @@ export default function TaskForm({ addTask, onCancel }: Props) {
           </div>
 
           <div className={styles.actions}>
-            <button type="submit">Add</button>
-            <button type="button" onClick={onCancel}>
-              Cancel
-            </button>
+            <button type="submit">{editingTask ? "Save" : "Add"}</button>
+            <button type="button" onClick={onCancel}>Cancel</button>
           </div>
         </form>
       </div>

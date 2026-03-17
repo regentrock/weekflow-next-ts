@@ -16,18 +16,19 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy
 } from "@dnd-kit/sortable";
-// import { restrictToVerticalAxis } from "@dnd-kit/modifiers"; // removido
 import { Task, Day } from "@/types/task";
 import SortableTaskCard from "../TaskCard/SortableTaskCard";
 import styles from "./DayColumn.module.css";
 import { useState } from "react";
 
 type Props = {
-  day: Day;
-  tasks: Task[];
-  toggleTask: (id: string) => void;
-  deleteTask: (id: string) => void;
-  reorderTasks: (activeId: string, overId: string, day: Day) => void;
+  day: Day
+  tasks: Task[]
+  toggleTask: (id: string) => void
+  deleteTask: (id: string) => void
+  reorderTasks: (activeId: string, overId: string, day: Day) => void
+  onEditTask: (task: Task) => void
+  onAddTaskClick: () => void
 };
 
 export default function DayColumn({
@@ -35,21 +36,18 @@ export default function DayColumn({
   tasks,
   toggleTask,
   deleteTask,
-  reorderTasks
+  reorderTasks,
+  onEditTask,
+  onAddTaskClick
 }: Props) {
   const [activeId, setActiveId] = useState<string | null>(null);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 8, // para mouse
-      },
+      activationConstraint: { distance: 8 },
     }),
     useSensor(TouchSensor, {
-      activationConstraint: {
-        delay: 250,      // evita conflito com scroll no mobile
-        tolerance: 5,
-      },
+      activationConstraint: { delay: 250, tolerance: 5 },
     }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
@@ -65,7 +63,6 @@ export default function DayColumn({
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
     setActiveId(null);
-
     if (!over) return;
     if (active.id !== over.id) {
       reorderTasks(active.id.toString(), over.id.toString(), day);
@@ -84,26 +81,32 @@ export default function DayColumn({
         collisionDetection={closestCorners}
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
-        // modifiers removido – agora o movimento é livre
       >
         <SortableContext
           items={sortedTasks.map(t => t.id)}
           strategy={verticalListSortingStrategy}
         >
           <div className={styles.tasks}>
-            {sortedTasks.length === 0 && (
-              <p className={styles.empty}>Nenhuma tarefa</p>
+            {sortedTasks.length === 0 ? (
+              <>
+                <p className={styles.empty}>No tasks</p>
+                <button className={styles.addTaskBtn} onClick={onAddTaskClick}>
+                  + Add task
+                </button>
+              </>
+            ) : (
+              sortedTasks.map(task => (
+                <SortableTaskCard
+                  key={task.id}
+                  id={task.id}
+                  task={task}
+                  toggleTask={toggleTask}
+                  deleteTask={deleteTask}
+                  onEdit={onEditTask}
+                  isDragging={activeId === task.id}
+                />
+              ))
             )}
-            {sortedTasks.map(task => (
-              <SortableTaskCard
-                key={task.id}
-                id={task.id}
-                task={task}
-                toggleTask={toggleTask}
-                deleteTask={deleteTask}
-                isDragging={activeId === task.id}
-              />
-            ))}
           </div>
         </SortableContext>
       </DndContext>

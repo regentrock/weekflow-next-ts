@@ -44,6 +44,35 @@
   border-radius: var(--radius);
 }
 
+.addTaskBtn {
+  grid-column: 2/3;
+  text-align: center;
+  margin: 0 auto;
+  background: var(--primary);
+  color: var(--gray-100);
+  border: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  transition: var(--transition);
+  border: 1px solid transparent;
+}
+
+.addTaskBtn:hover {
+  background: var(--gray-50);
+  box-shadow: var(--shadow);
+  transform: translateY(-1px);
+}
+
+.addTaskBtn:active {
+  transform: translateY(0);
+}
+
+/* Desktop: 3 colunas */
 @media (min-width: 1024px) {
   .tasks {
     grid-template-columns: repeat(3, 1fr);
@@ -51,6 +80,7 @@
   }
 }
 
+/* Tablet: 2 colunas */
 @media (min-width: 768px) and (max-width: 1023px) {
   .tasks {
     grid-template-columns: repeat(2, 1fr);
@@ -58,6 +88,7 @@
   }
 }
 
+/* Mobile: 1 coluna */
 @media (max-width: 767px) {
   .container{
     margin-bottom: 0;
@@ -80,5 +111,15 @@
 
   .empty {
     padding: 2rem 1rem;
+  }
+
+  /* Ajustes para o botão Add task em mobile */
+  .addTaskBtn {
+    grid-column: 1 / -1; /* ocupa toda a largura da coluna */
+    width: auto;
+    max-width: 300px; /* largura máxima opcional */
+    margin: 0 auto; /* centraliza horizontalmente */
+    padding: 0.75rem 1.5rem; /* um pouco mais de padding para facilitar o toque */
+    font-size: 1rem; /* ajuste fino */
   }
 }

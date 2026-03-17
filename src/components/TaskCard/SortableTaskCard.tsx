@@ -10,6 +10,7 @@ type Props = {
   task: Task;
   toggleTask: (id: string) => void;
   deleteTask: (id: string) => void;
+  onEdit: (task: Task) => void; // nova prop
   isDragging?: boolean;
 };
 
@@ -18,6 +19,7 @@ export default function SortableTaskCard({
   task,
   toggleTask,
   deleteTask,
+  onEdit,
   isDragging
 }: Props) {
   const {
@@ -41,7 +43,12 @@ export default function SortableTaskCard({
 
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      <TaskCard task={task} toggleTask={toggleTask} deleteTask={deleteTask} />
+      <TaskCard
+        task={task}
+        toggleTask={toggleTask}
+        deleteTask={deleteTask}
+        onEdit={onEdit}
+      />
     </div>
   );
 }
