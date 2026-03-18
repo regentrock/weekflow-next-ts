@@ -86,6 +86,13 @@ export default function DayColumn({
     <div className={styles.column}>
       <div className={styles.header}>
         <h2 className={styles.title}>
+
+           {sortedTasks.length > 0 && (
+              <button className={styles.floatingBtn} onClick={onAddTaskClick}>
+                +
+              </button>
+            )}
+
           {translatedDay}
           <span className={styles.count}>{tasks.length}</span>
         </h2>

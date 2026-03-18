@@ -21,6 +21,37 @@
   text-transform: uppercase;
 }
 
+.floatingBtn {
+  display: none;
+  background-color: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 3.5rem;
+  height: 3.5rem;
+  font-size: 1.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-lg);
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+  line-height: 1; /* Garante que o texto não tenha altura extra */
+}
+
+.floatingBtn:hover {
+  background-color: var(--primary-dark);
+  transform: scale(1.05);
+}
+
+.floatingBtn:active {
+  transform: scale(0.95);
+}
+
 .count {
   background: var(--bg-tertiary);
   color: var(--text-tertiary);
@@ -132,6 +163,12 @@
     margin-bottom: 0;
     border-bottom: none;
   }
+
+.floatingBtn{
+  display: block;
+  position: fixed;
+}
+
   .filterBar {
     width: 100%;
     justify-content: space-between;
