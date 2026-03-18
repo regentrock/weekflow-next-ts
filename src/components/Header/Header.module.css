@@ -1,10 +1,9 @@
-/* Header.module.css */
 .header {
   position: sticky;
   top: 0;
   background-color: var(--primary);
   color: white;
-  padding: 0.75rem 1.5rem;
+  padding: 0.5rem 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -12,10 +11,28 @@
   z-index: 100;
 }
 
-.logo {
-  font-size: 1.5rem;
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.logoImage {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+  margin: 0;
+}
+
+.logoText {
+  font-size: 1.6rem;
   font-weight: 700;
   letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.logoText span{
+    color: #0c1243;
 }
 
 .addTaskBtn {
@@ -40,20 +57,18 @@
   transform: translateY(-1px);
 }
 
-.addTaskBtn:active {
-  transform: translateY(0);
-}
-
 /* Responsividade */
 @media (max-width: 640px) {
   .header {
-    padding: 1.25rem 1rem;
+    padding: 0.75rem 1rem;
   }
-
-  .logo {
-    font-size: 1.5rem;
+  .logoText {
+    font-size: 1.35rem;
   }
-
+  .logoImage {
+    width: 32px;
+    height: 32px;
+  }
   .addTaskBtn {
     padding: 0.4rem 1rem;
     font-size: 0.9rem;
