@@ -13,16 +13,42 @@
 .containerLeft {
   flex: 2;
   min-width: 0;
-  overflow-y: auto; /* se necessário, mas geralmente não precisa */
+  overflow-y: auto;
 }
 
-.containerRight {
+.containerRight{
   flex: 1;
   min-width: 0;
-  max-height: calc(80vh - 3rem); /* ajuste conforme necessário */
+  max-height: calc(80vh - 3rem);
   overflow-y: auto;
   position: sticky;
-  top: 1rem; /* opcional, para manter visível ao rolar */
+  top: 1rem;
+  border-radius: var(--radius);
+}
+
+/* Estilização da scrollbar para o containerRight */
+.containerRight {
+  scrollbar-width: thin;
+  scrollbar-color: var(--gray-400) var(--gray-100);
+}
+
+.containerRight::-webkit-scrollbar {
+  width: 6px;
+}
+
+.containerRight::-webkit-scrollbar-track {
+  background: var(--gray-100);
+  border-radius: var(--radius-sm);
+}
+
+.containerRight::-webkit-scrollbar-thumb {
+  background: var(--gray-400);
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+}
+
+.containerRight::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-500);
 }
 
 .daysNav {
@@ -90,7 +116,7 @@
 /* Estilos para os contadores nos dias */
 .dayName {
   font-weight: 500;
-  font-size: 1rem; /* mesmo tamanho do texto original do botão */
+  font-size: 1rem;
 }
 
 .dayCount {
@@ -132,39 +158,6 @@
 /* Controle de visibilidade do overview em mobile */
 .overviewWrapper {
   display: block;
-}
-
-.filterBar {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.filterBtn {
-  padding: 0.4rem 1rem;
-  border: 1px solid var(--gray-300);
-  background: white;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--gray-600);
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.filterBtn:hover {
-  background: var(--gray-100);
-  border-color: var(--gray-400);
-}
-
-.activeFilter {
-  background: var(--primary);
-  color: white;
-  border-color: var(--primary);
-}
-
-.activeFilter:hover {
-  background: var(--primary-dark);
 }
 
 @media (max-width: 1024px) {

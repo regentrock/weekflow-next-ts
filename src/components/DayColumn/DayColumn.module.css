@@ -4,16 +4,20 @@
   min-height: 200px;
 }
 
-.title { 
+.header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.title { 
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--gray-800);
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid var(--gray-100);
   letter-spacing: 0.3px;
   text-transform: uppercase;
 }
@@ -25,6 +29,38 @@
   border-radius: 9999px;
   font-size: 0.875rem;
   font-weight: 500;
+}
+
+.filterBar {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.filterBtn {
+  padding: 0.4rem 1rem;
+  border: 1px solid var(--gray-300);
+  background: white;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--gray-600);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.filterBtn:hover {
+  background: var(--gray-100);
+  border-color: var(--gray-400);
+}
+
+.activeFilter {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.activeFilter:hover {
+  background: var(--primary-dark);
 }
 
 .tasks {
@@ -94,6 +130,13 @@
     margin-bottom: 0;
   }
 
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
   .tasks {
     grid-template-columns: 1fr;
     gap: 0.75rem;
@@ -105,21 +148,30 @@
 
   .title {
     font-size: 1.2rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0;
     border-bottom: none;
+  }
+
+  .filterBar {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .filterBtn {
+    flex: 1;
+    text-align: center;
   }
 
   .empty {
     padding: 2rem 1rem;
   }
 
-  /* Ajustes para o botão Add task em mobile */
   .addTaskBtn {
-    grid-column: 1 / -1; /* ocupa toda a largura da coluna */
+    grid-column: 1 / -1;
     width: auto;
-    max-width: 300px; /* largura máxima opcional */
-    margin: 0 auto; /* centraliza horizontalmente */
-    padding: 0.75rem 1.5rem; /* um pouco mais de padding para facilitar o toque */
-    font-size: 1rem; /* ajuste fino */
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
   }
 }

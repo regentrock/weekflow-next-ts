@@ -27,23 +27,14 @@ const days: Day[] = [
   "Sunday"
 ]
 
-type FilterStatus = "all" | "active" | "completed"
-
 export default function Board({ isFormOpen, closeForm, onOpenForm }: Props) {
   const { tasks, addTask, updateTask, toggleTask, deleteTask, reorderTasks } = useTasks()
   const [activeDay, setActiveDay] = useState<Day>("Monday")
   const [editingTask, setEditingTask] = useState<Task | null>(null)
-  const [filter, setFilter] = useState<FilterStatus>("all")
   const [showOverview, setShowOverview] = useState(false)
 
-  // Aplica filtro às tarefas do dia ativo
   const dayTasks = tasks
     .filter(t => t.day === activeDay)
-    .filter(t => {
-      if (filter === "active") return !t.completed
-      if (filter === "completed") return t.completed
-      return true
-    })
     .sort((a, b) => (a.order || 0) - (b.order || 0))
 
   function handleEditTask(task: Task) {
@@ -72,28 +63,6 @@ export default function Board({ isFormOpen, closeForm, onOpenForm }: Props) {
 
       <div className={styles.container}>
         <div className={styles.containerLeft}>
-          {/* Filtros */}
-          <div className={styles.filterBar}>
-            <button
-              className={`${styles.filterBtn} ${filter === "all" ? styles.activeFilter : ""}`}
-              onClick={() => setFilter("all")}
-            >
-              All
-            </button>
-            <button
-              className={`${styles.filterBtn} ${filter === "active" ? styles.activeFilter : ""}`}
-              onClick={() => setFilter("active")}
-            >
-              Active
-            </button>
-            <button
-              className={`${styles.filterBtn} ${filter === "completed" ? styles.activeFilter : ""}`}
-              onClick={() => setFilter("completed")}
-            >
-              Completed
-            </button>
-          </div>
-
           {/* Navegação de dias com contador */}
           <div className={styles.daysNav}>
             {days.map(day => {

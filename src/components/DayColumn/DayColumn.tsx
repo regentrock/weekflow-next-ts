@@ -21,6 +21,8 @@ import SortableTaskCard from "../TaskCard/SortableTaskCard";
 import styles from "./DayColumn.module.css";
 import { useState } from "react";
 
+type FilterStatus = "all" | "active" | "completed";
+
 type Props = {
   day: Day
   tasks: Task[]
@@ -41,6 +43,7 @@ export default function DayColumn({
   onAddTaskClick
 }: Props) {
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [filter, setFilter] = useState<FilterStatus>("all");
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -54,7 +57,13 @@ export default function DayColumn({
     })
   );
 
-  const sortedTasks = [...tasks].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+  const filteredTasks = tasks.filter(t => {
+    if (filter === "active") return !t.completed;
+    if (filter === "completed") return t.completed;
+    return true;
+  });
+
+  const sortedTasks = [...filteredTasks].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 
   function handleDragStart(event: DragStartEvent) {
     setActiveId(event.active.id.toString());
@@ -71,10 +80,34 @@ export default function DayColumn({
 
   return (
     <div className={styles.column}>
-      <h2 className={styles.title}>
-        {day}
-        <span className={styles.count}>{tasks.length}</span>
-      </h2>
+      <div className={styles.header}>
+        <h2 className={styles.title}>
+          {day}
+          <span className={styles.count}>{tasks.length}</span>
+        </h2>
+
+        {/* Filtros */}
+        <div className={styles.filterBar}>
+          <button
+            className={`${styles.filterBtn} ${filter === "all" ? styles.activeFilter : ""}`}
+            onClick={() => setFilter("all")}
+          >
+            All
+          </button>
+          <button
+            className={`${styles.filterBtn} ${filter === "active" ? styles.activeFilter : ""}`}
+            onClick={() => setFilter("active")}
+          >
+            Active
+          </button>
+          <button
+            className={`${styles.filterBtn} ${filter === "completed" ? styles.activeFilter : ""}`}
+            onClick={() => setFilter("completed")}
+          >
+            Completed
+          </button>
+        </div>
+      </div>
 
       <DndContext
         sensors={sensors}

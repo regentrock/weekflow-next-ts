@@ -27,27 +27,33 @@ export default function WeekOverview({ tasks }: Props) {
     <div className={styles.container}>
       <h2 className={styles.title}>Week Overview</h2>
       <div className={styles.dayList}>
-        {daysOrder.map(day => (
-          <div key={day} className={styles.dayItem}>
-            <h3 className={styles.dayHeader}>{day}</h3>
-            {tasksByDay[day].length === 0 ? (
-              <p className={styles.empty}>No tasks</p>
-            ) : (
-              <ul className={styles.taskList}>
-                {tasksByDay[day].map(task => (
-                  <li key={task.id} className={styles.taskItem}>
-                    <span
-                      className={`${styles.priorityDot} ${styles[task.priority]}`}
-                    />
-                    <span className={task.completed ? styles.completed : ""}>
-                      {task.title}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        ))}
+        {daysOrder.map(day => {
+          const dayTasks = tasksByDay[day];
+          return (
+            <div key={day} className={styles.dayItem}>
+              <div className={styles.dayHeader}>
+                <span className={styles.dayName}>{day}</span>
+                <span className={styles.dayCount}>{dayTasks.length}</span>
+              </div>
+              {dayTasks.length > 0 ? (
+                <ul className={styles.taskList}>
+                  {dayTasks.map(task => (
+                    <li key={task.id} className={styles.taskItem}>
+                      <span
+                        className={`${styles.priorityDot} ${styles[task.priority]}`}
+                      />
+                      <span className={task.completed ? styles.completed : ""}>
+                        {task.title}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div className={styles.empty}>—</div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

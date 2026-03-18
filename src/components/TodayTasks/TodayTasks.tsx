@@ -2,6 +2,7 @@
 
 import { Task, Day } from "@/types/task"
 import styles from "./TodayTasks.module.css"
+import { TfiTimer } from "react-icons/tfi";
 
 type Props = {
   tasks: Task[]
@@ -24,6 +25,20 @@ export default function TodayTasks({ tasks }: Props) {
   const total = todayTasks.length
   const progressPercentage = total > 0 ? (completed / total) * 100 : 0
 
+  // Cálculo de tempo estimado total e concluído
+  const totalEstimatedTime = todayTasks.reduce((sum, task) => sum + task.estimatedTime, 0)
+  const completedEstimatedTime = todayTasks
+    .filter(task => task.completed)
+    .reduce((sum, task) => sum + task.estimatedTime, 0)
+
+  const formatTime = (minutes: number): string => {
+    if (minutes < 60) return `${minutes}min`
+    const hours = Math.floor(minutes / 60)
+    const remainingMinutes = minutes % 60
+    if (remainingMinutes === 0) return `${hours}h`
+    return `${hours}h${remainingMinutes}`
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.left}>
@@ -33,9 +48,12 @@ export default function TodayTasks({ tasks }: Props) {
 
       {total > 0 ? (
         <div className={styles.progress}>
-          <span className={styles.stats}>
-            <strong>{completed}</strong>/{total}
-          </span>
+          <div className={styles.stats}>
+            <span className={styles.count}>
+              <strong>{completed}</strong>/{total}
+            </span>
+            <span className={styles.percentage}>({Math.round(progressPercentage)}%)</span>
+          </div>
           <div className={styles.progressBar}>
             <div
               className={styles.progressFill}
@@ -46,9 +64,14 @@ export default function TodayTasks({ tasks }: Props) {
               aria-valuemax={100}
             />
           </div>
+          {totalEstimatedTime > 0 && (
+            <div className={styles.timeInfo}>
+              <span><TfiTimer /> {formatTime(completedEstimatedTime)} / {formatTime(totalEstimatedTime)}</span>
+            </div>
+          )}
         </div>
       ) : (
-        <span className={styles.empty}>No tasks</span>
+        <span className={styles.empty}>No tasks for today</span>
       )}
     </div>
   )
