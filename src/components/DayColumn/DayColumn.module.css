@@ -1,4 +1,3 @@
-/* DayColumn.module.css */
 .column {
   margin-top: 1.5rem;
   min-height: 200px;
@@ -11,20 +10,20 @@
   margin-bottom: 1.5rem;
 }
 
-.title { 
+.title {
   display: flex;
   align-items: center;
   gap: 0.75rem;
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--gray-800);
+  color: var(--text-primary);
   letter-spacing: 0.3px;
   text-transform: uppercase;
 }
 
 .count {
-  background: var(--gray-100);
-  color: var(--gray-600);
+  background: var(--bg-tertiary);
+  color: var(--text-tertiary);
   padding: 0.25rem 0.75rem;
   border-radius: 9999px;
   font-size: 0.875rem;
@@ -38,27 +37,24 @@
 
 .filterBtn {
   padding: 0.4rem 1rem;
-  border: 1px solid var(--gray-300);
-  background: white;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
   border-radius: 20px;
   font-size: 0.85rem;
   font-weight: 500;
-  color: var(--gray-600);
+  color: var(--text-secondary);
   cursor: pointer;
   transition: var(--transition);
 }
-
 .filterBtn:hover {
-  background: var(--gray-100);
-  border-color: var(--gray-400);
+  background: var(--bg-tertiary);
+  border-color: var(--border-color-hover);
 }
-
 .activeFilter {
   background: var(--primary);
   color: white;
   border-color: var(--primary);
 }
-
 .activeFilter:hover {
   background: var(--primary-dark);
 }
@@ -69,11 +65,11 @@
 }
 
 .empty {
-  color: var(--gray-400);
+  color: var(--text-tertiary);
   font-size: 0.9rem;
   text-align: center;
   padding: 2.5rem 1rem;
-  border: 1px dashed var(--gray-300);
+  border: 1px dashed var(--border-color);
   font-weight: 400;
   letter-spacing: 0.3px;
   grid-column: 1 / -1;
@@ -85,7 +81,7 @@
   text-align: center;
   margin: 0 auto;
   background: var(--primary);
-  color: var(--gray-100);
+  color: white;
   border: none;
   padding: 0.5rem 1.25rem;
   border-radius: var(--radius);
@@ -95,77 +91,58 @@
   align-items: center;
   cursor: pointer;
   transition: var(--transition);
-  border: 1px solid transparent;
 }
-
 .addTaskBtn:hover {
-  background: var(--gray-50);
+  background: var(--primary-dark);
   box-shadow: var(--shadow);
   transform: translateY(-1px);
 }
-
 .addTaskBtn:active {
   transform: translateY(0);
 }
 
-/* Desktop: 3 colunas */
 @media (min-width: 1024px) {
   .tasks {
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
   }
 }
-
-/* Tablet: 2 colunas */
 @media (min-width: 768px) and (max-width: 1023px) {
   .tasks {
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
 }
-
-/* Mobile: 1 coluna */
 @media (max-width: 767px) {
-  .container{
-    margin-bottom: 0;
-  }
-
   .header {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.75rem;
     margin-bottom: 1rem;
   }
-
   .tasks {
     grid-template-columns: 1fr;
     gap: 0.75rem;
   }
-
   .column {
     margin-top: 1rem;
   }
-
   .title {
     font-size: 1.2rem;
     margin-bottom: 0;
     border-bottom: none;
   }
-
   .filterBar {
     width: 100%;
     justify-content: space-between;
   }
-
   .filterBtn {
     flex: 1;
     text-align: center;
   }
-
   .empty {
     padding: 2rem 1rem;
   }
-
   .addTaskBtn {
     grid-column: 1 / -1;
     width: auto;

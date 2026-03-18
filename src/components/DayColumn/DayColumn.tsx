@@ -20,6 +20,7 @@ import { Task, Day } from "@/types/task";
 import SortableTaskCard from "../TaskCard/SortableTaskCard";
 import styles from "./DayColumn.module.css";
 import { useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 type FilterStatus = "all" | "active" | "completed";
 
@@ -42,6 +43,7 @@ export default function DayColumn({
   onEditTask,
   onAddTaskClick
 }: Props) {
+  const { t } = useLanguage();
   const [activeId, setActiveId] = useState<string | null>(null);
   const [filter, setFilter] = useState<FilterStatus>("all");
 
@@ -78,33 +80,34 @@ export default function DayColumn({
     }
   }
 
+  const translatedDay = t(day.toLowerCase());
+
   return (
     <div className={styles.column}>
       <div className={styles.header}>
         <h2 className={styles.title}>
-          {day}
+          {translatedDay}
           <span className={styles.count}>{tasks.length}</span>
         </h2>
 
-        {/* Filtros */}
         <div className={styles.filterBar}>
           <button
             className={`${styles.filterBtn} ${filter === "all" ? styles.activeFilter : ""}`}
             onClick={() => setFilter("all")}
           >
-            All
+            {t('all')}
           </button>
           <button
             className={`${styles.filterBtn} ${filter === "active" ? styles.activeFilter : ""}`}
             onClick={() => setFilter("active")}
           >
-            Active
+            {t('active')}
           </button>
           <button
             className={`${styles.filterBtn} ${filter === "completed" ? styles.activeFilter : ""}`}
             onClick={() => setFilter("completed")}
           >
-            Completed
+            {t('completed')}
           </button>
         </div>
       </div>
@@ -122,9 +125,9 @@ export default function DayColumn({
           <div className={styles.tasks}>
             {sortedTasks.length === 0 ? (
               <>
-                <p className={styles.empty}>No tasks</p>
+                <p className={styles.empty}>{t('noTasks')}</p>
                 <button className={styles.addTaskBtn} onClick={onAddTaskClick}>
-                  + Add task
+                  {t('addTaskBtn')}
                 </button>
               </>
             ) : (

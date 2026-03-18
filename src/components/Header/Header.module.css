@@ -18,14 +18,14 @@
 }
 
 .logoImage {
-  width: 45px;
-  height: 45px;
+  width: 48px;
+  height: 48px;
   object-fit: contain;
   margin: 0;
 }
 
 .logoText {
-  font-size: 1.6rem;
+  font-size: 1.65rem;
   font-weight: 700;
   letter-spacing: 0.5px;
   margin: 0;
@@ -35,11 +35,16 @@
     color: #0c1243;
 }
 
+.buttonsContainer{
+    display: flex;
+    gap: 1.5rem;
+}
+
 .addTaskBtn {
   background: white;
   color: var(--primary);
   border: none;
-  padding: 0.5rem 1.25rem;
+  padding: 0.45rem 1.25rem;
   border-radius: var(--radius);
   font-weight: 600;
   font-size: 0.95rem;
@@ -57,20 +62,30 @@
   transform: translateY(-1px);
 }
 
+.optionsBtn{
+    background: none;
+    border: none;
+    color: var(--gray-50);
+    font-size: 1.85rem;
+}
+
 /* Responsividade */
 @media (max-width: 640px) {
   .header {
     padding: 0.75rem 1rem;
   }
   .logoText {
-    font-size: 1.35rem;
+    font-size: 1.65rem;
   }
   .logoImage {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
   }
   .addTaskBtn {
-    padding: 0.4rem 1rem;
-    font-size: 0.9rem;
+    display: none;
+  }
+
+  .optionsBtn{
+    font-size: 2.2rem;
   }
 }

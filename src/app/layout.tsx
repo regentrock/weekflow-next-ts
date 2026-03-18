@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import "./globals.css"
+import { LanguageProvider } from "@/contexts/LanguageContext";
 
 export function generateMetadata(): Metadata {
   const day = new Date().toLocaleDateString("en-us", { weekday: "long" });
@@ -14,14 +15,14 @@ export function generateMetadata(): Metadata {
   };
 }
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
+      </body>
     </html>
   );
 }

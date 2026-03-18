@@ -3,11 +3,12 @@
 import { useState, useEffect } from "react"
 import { Day, Priority, Task } from "@/types/task"
 import styles from "./TaskForm.module.css"
+import { useLanguage } from "@/contexts/LanguageContext"
 
 type Props = {
   addTask: (task: Task) => void
   onCancel: () => void
-  editingTask?: Task | null // tarefa para edição
+  editingTask?: Task | null
 }
 
 const days: Day[] = [
@@ -21,6 +22,7 @@ const days: Day[] = [
 ]
 
 export default function TaskForm({ addTask, onCancel, editingTask }: Props) {
+  const { t } = useLanguage();
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
   const [day, setDay] = useState<Day>("Monday")
@@ -30,7 +32,6 @@ export default function TaskForm({ addTask, onCancel, editingTask }: Props) {
   const [minutes, setMinutes] = useState(30)
   const [error, setError] = useState("")
 
-  // Preencher formulário se estiver editando
   useEffect(() => {
     if (editingTask) {
       setTitle(editingTask.title)
@@ -42,7 +43,6 @@ export default function TaskForm({ addTask, onCancel, editingTask }: Props) {
       setHours(Math.floor(total / 60))
       setMinutes(total % 60)
     } else {
-      // Reset para valores padrão
       setTitle("")
       setDescription("")
       setDay("Monday")
@@ -56,13 +56,13 @@ export default function TaskForm({ addTask, onCancel, editingTask }: Props) {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!title.trim()) {
-      setError("The title is required")
+      setError(t('titleRequired'))
       return
     }
     setError("")
 
     if (minutes < 0 || minutes > 59) {
-      setError("Minutes must be between 0 and 59")
+      setError(t('minutesError'))
       return
     }
 
@@ -93,6 +93,10 @@ export default function TaskForm({ addTask, onCancel, editingTask }: Props) {
     }
   }
 
+  // Traduzir os dias para exibir no select? Os valores do select são os dias em inglês (Monday, etc.), mas o texto visível pode ser traduzido.
+  // Podemos mapear cada dia para sua tradução.
+  const translatedDays = days.map(d => ({ value: d, label: t(d.toLowerCase()) }));
+
   return (
     <div
       className={styles.overlay}
@@ -102,10 +106,10 @@ export default function TaskForm({ addTask, onCancel, editingTask }: Props) {
     >
       <div className={styles.formContainer}>
         <form className={styles.form} onSubmit={handleSubmit}>
-          <h3>{editingTask ? "Edit Task" : "Add Task"}</h3>
+          <h3>{editingTask ? t('editTaskTitle') : t('addTaskTitle')}</h3>
 
           <div className={styles.field}>
-            <label htmlFor="title">Title *</label>
+            <label htmlFor="title">{t('title')} *</label>
             <input
               id="title"
               type="text"
@@ -119,10 +123,10 @@ export default function TaskForm({ addTask, onCancel, editingTask }: Props) {
           </div>
 
           <div className={styles.field}>
-            <label htmlFor="description">Description (optional)</label>
+            <label htmlFor="description">{t('description')}</label>
             <textarea
               id="description"
-              placeholder="Add details about this task..."
+              placeholder={t('descriptionPlaceholder')}
               value={description}
               onChange={e => setDescription(e.target.value)}
               rows={3}
@@ -130,34 +134,34 @@ export default function TaskForm({ addTask, onCancel, editingTask }: Props) {
           </div>
 
           <div className={styles.field}>
-            <label htmlFor="day">Day</label>
+            <label htmlFor="day">{t('day')}</label>
             <select
               id="day"
               value={day}
               onChange={e => setDay(e.target.value as Day)}
             >
-              {days.map(d => (
-                <option key={d} value={d}>{d}</option>
+              {translatedDays.map(({ value, label }) => (
+                <option key={value} value={value}>{label}</option>
               ))}
             </select>
           </div>
 
           <div className={styles.field}>
-            <label htmlFor="priority">Priority</label>
+            <label htmlFor="priority">{t('priority')}</label>
             <select
               id="priority"
               value={priority}
               onChange={e => setPriority(e.target.value as Priority)}
             >
-              <option value="low">Low</option>
-              <option value="medium">Medium</option>
-              <option value="high">High</option>
+              <option value="low">{t('low')}</option>
+              <option value="medium">{t('medium')}</option>
+              <option value="high">{t('high')}</option>
             </select>
           </div>
 
           <div className={styles.row}>
             <div className={styles.field}>
-              <label htmlFor="hours">Hours</label>
+              <label htmlFor="hours">{t('hours')}</label>
               <input
                 id="hours"
                 type="number"
@@ -167,7 +171,7 @@ export default function TaskForm({ addTask, onCancel, editingTask }: Props) {
               />
             </div>
             <div className={styles.field}>
-              <label htmlFor="minutes">Minutes</label>
+              <label htmlFor="minutes">{t('minutes')}</label>
               <input
                 id="minutes"
                 type="number"
@@ -180,8 +184,8 @@ export default function TaskForm({ addTask, onCancel, editingTask }: Props) {
           </div>
 
           <div className={styles.actions}>
-            <button type="submit">{editingTask ? "Save" : "Add"}</button>
-            <button type="button" onClick={onCancel}>Cancel</button>
+            <button type="submit">{editingTask ? t('save') : t('add')}</button>
+            <button type="button" onClick={onCancel}>{t('cancel')}</button>
           </div>
         </form>
       </div>

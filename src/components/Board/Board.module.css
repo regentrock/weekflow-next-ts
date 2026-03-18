@@ -1,4 +1,3 @@
-/* Board.module.css */
 .container {
   max-width: 100vw;
   min-height: 80vh;
@@ -6,8 +5,9 @@
   flex-direction: row;
   margin: 0 auto;
   padding: 1.5rem;
-  background: #D6E4F0;
+  background: var(--bg-board);
   gap: 1.5rem;
+  transition: background-color 0.2s ease;
 }
 
 .containerLeft {
@@ -16,7 +16,7 @@
   overflow-y: auto;
 }
 
-.containerRight{
+.containerRight {
   flex: 1;
   min-width: 0;
   max-height: calc(80vh - 3rem);
@@ -24,29 +24,26 @@
   position: sticky;
   top: 1rem;
   border-radius: var(--radius);
+  background: transparent;
 }
 
-/* Estilização da scrollbar para o containerRight */
+/* Estilização da scrollbar (mantém) */
 .containerRight {
   scrollbar-width: thin;
   scrollbar-color: var(--gray-400) var(--gray-100);
 }
-
 .containerRight::-webkit-scrollbar {
   width: 6px;
 }
-
 .containerRight::-webkit-scrollbar-track {
   background: var(--gray-100);
   border-radius: var(--radius-sm);
 }
-
 .containerRight::-webkit-scrollbar-thumb {
   background: var(--gray-400);
   border-radius: var(--radius-sm);
   transition: var(--transition);
 }
-
 .containerRight::-webkit-scrollbar-thumb:hover {
   background: var(--gray-500);
 }
@@ -54,23 +51,21 @@
 .daysNav {
   display: flex;
   gap: 0.25rem;
-  border-bottom: 2px solid var(--gray-100);
+  border-bottom: 2px solid var(--border-color);
   margin-bottom: 2rem;
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
-
 .daysNav::-webkit-scrollbar {
   display: none;
 }
-
 .daysNav button {
   padding: 0.75rem 1.5rem;
   background: transparent;
   border: none;
   font-weight: 500;
-  color: var(--gray-600);
+  color: var(--text-tertiary);
   cursor: pointer;
   position: relative;
   transition: var(--transition);
@@ -83,7 +78,6 @@
   justify-content: center;
   line-height: 1.2;
 }
-
 .daysNav button::after {
   content: '';
   position: absolute;
@@ -95,47 +89,39 @@
   transform: scaleX(0);
   transition: transform 0.2s ease;
 }
-
 .daysNav button:hover {
-  color: var(--gray-800);
+  color: var(--text-primary);
 }
-
 .daysNav button:hover::after {
   transform: scaleX(0.5);
 }
-
 .activeDay {
   color: var(--primary) !important;
   font-weight: 600;
 }
-
 .activeDay::after {
   transform: scaleX(1) !important;
 }
 
-/* Estilos para os contadores nos dias */
 .dayName {
   font-weight: 500;
   font-size: 1rem;
 }
-
 .dayCount {
   font-size: 0.75rem;
-  color: var(--gray-500);
+  color: var(--text-tertiary);
   padding: 0.25rem 0.5rem;
   border-radius: 50%;
   margin-top: 0.2rem;
   min-width: 1.5rem;
   text-align: center;
 }
-
 .activeDay .dayCount {
   background: var(--primary-light);
-  color: var(--gray-300);
+  color: var(--text-inverse);
   font-weight: 500;
 }
 
-/* Botão toggle para mobile */
 .toggleOverviewBtn {
   display: none;
   width: 100%;
@@ -150,12 +136,10 @@
   margin-bottom: 1rem;
   transition: var(--transition);
 }
-
 .toggleOverviewBtn:hover {
   background: var(--primary-dark);
 }
 
-/* Controle de visibilidade do overview em mobile */
 .overviewWrapper {
   display: block;
 }
@@ -166,7 +150,6 @@
     max-width: 95vw;
     padding: 1rem;
   }
-
   .containerLeft,
   .containerRight {
     flex: auto;
@@ -183,20 +166,16 @@
     gap: 2.25rem;
     margin: 0;
   }
-
   .daysNav button {
     padding: 1.2rem 1.5rem;
     font-size: 0.9rem;
   }
-
   .toggleOverviewBtn {
     display: block;
   }
-
   .overviewWrapper {
     display: none;
   }
-
   .overviewWrapper.visible {
     display: block;
   }

@@ -10,6 +10,7 @@ import TodayTasks from "../TodayTasks/TodayTasks"
 import WeekOverview from "@/components/WeekOverview/WeekOverview"
 
 import styles from "./Board.module.css"
+import { useLanguage } from "@/contexts/LanguageContext"
 
 type Props = {
   isFormOpen: boolean
@@ -28,6 +29,7 @@ const days: Day[] = [
 ]
 
 export default function Board({ isFormOpen, closeForm, onOpenForm }: Props) {
+  const { t } = useLanguage();
   const { tasks, addTask, updateTask, toggleTask, deleteTask, reorderTasks } = useTasks()
   const [activeDay, setActiveDay] = useState<Day>("Monday")
   const [editingTask, setEditingTask] = useState<Task | null>(null)
@@ -57,13 +59,18 @@ export default function Board({ isFormOpen, closeForm, onOpenForm }: Props) {
     setEditingTask(null)
   }
 
+  // Para os dias na navegação, usamos as abreviações traduzidas
+  const dayAbbr = (day: Day) => {
+    const key = day.slice(0,3).toLowerCase(); // "mon", "tue", etc.
+    return t(key);
+  };
+
   return (
     <>
       <TodayTasks tasks={tasks} />
 
       <div className={styles.container}>
         <div className={styles.containerLeft}>
-          {/* Navegação de dias com contador */}
           <div className={styles.daysNav}>
             {days.map(day => {
               const count = tasks.filter(t => t.day === day).length
@@ -73,7 +80,7 @@ export default function Board({ isFormOpen, closeForm, onOpenForm }: Props) {
                   onClick={() => setActiveDay(day)}
                   className={activeDay === day ? styles.activeDay : ""}
                 >
-                  <span className={styles.dayName}>{day.slice(0, 3)}</span>
+                  <span className={styles.dayName}>{dayAbbr(day)}</span>
                   <span className={styles.dayCount}>{count}</span>
                 </button>
               )
@@ -104,7 +111,7 @@ export default function Board({ isFormOpen, closeForm, onOpenForm }: Props) {
             className={styles.toggleOverviewBtn}
             onClick={() => setShowOverview(!showOverview)}
           >
-            {showOverview ? "Hide" : "Show"} week overview
+            {showOverview ? t('hideOverview') : t('showOverview')}
           </button>
           <div className={`${styles.overviewWrapper} ${showOverview ? styles.visible : ""}`}>
             <WeekOverview tasks={tasks} />

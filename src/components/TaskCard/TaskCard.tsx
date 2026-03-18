@@ -1,3 +1,4 @@
+// TaskCard.tsx
 "use client"
 
 import { useState } from "react"
@@ -5,15 +6,17 @@ import { Task } from "@/types/task"
 import styles from "./TaskCard.module.css"
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
+import { useLanguage } from "@/contexts/LanguageContext"
 
 type Props = {
   task: Task
   toggleTask: (id: string) => void
   deleteTask: (id: string) => void
-  onEdit: (task: Task) => void // nova prop
+  onEdit: (task: Task) => void
 }
 
 export default function TaskCard({ task, toggleTask, deleteTask, onEdit }: Props) {
+  const { t } = useLanguage();
   const [menuOpen, setMenuOpen] = useState(false)
 
   const {
@@ -95,7 +98,7 @@ export default function TaskCard({ task, toggleTask, deleteTask, onEdit }: Props
             className={styles.editBtn}
             onClick={handleEdit}
           >
-            Edit
+            {t('edit')}
           </button>
           <button
             className={styles.deleteBtn}
@@ -104,7 +107,7 @@ export default function TaskCard({ task, toggleTask, deleteTask, onEdit }: Props
               deleteTask(task.id)
             }}
           >
-            Delete
+            {t('delete')}
           </button>
         </div>
       )}
@@ -112,7 +115,7 @@ export default function TaskCard({ task, toggleTask, deleteTask, onEdit }: Props
       <div className={styles.details}>
         <div className={styles.priority}>
           <span className={`${styles.priorityDot} ${styles[task.priority]}`} />
-          <span>{task.priority}</span>
+          <span>{t(task.priority)}</span>
         </div>
         <span className={styles.time}>{formatTime(task.estimatedTime)}</span>
       </div>

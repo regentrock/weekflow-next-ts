@@ -3,12 +3,14 @@
 import { Task, Day } from "@/types/task"
 import styles from "./TodayTasks.module.css"
 import { TfiTimer } from "react-icons/tfi";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 type Props = {
   tasks: Task[]
 }
 
 export default function TodayTasks({ tasks }: Props) {
+  const { t } = useLanguage();
   const days: Day[] = [
     "Sunday",
     "Monday",
@@ -25,7 +27,6 @@ export default function TodayTasks({ tasks }: Props) {
   const total = todayTasks.length
   const progressPercentage = total > 0 ? (completed / total) * 100 : 0
 
-  // Cálculo de tempo estimado total e concluído
   const totalEstimatedTime = todayTasks.reduce((sum, task) => sum + task.estimatedTime, 0)
   const completedEstimatedTime = todayTasks
     .filter(task => task.completed)
@@ -39,11 +40,15 @@ export default function TodayTasks({ tasks }: Props) {
     return `${hours}h${remainingMinutes}`
   }
 
+  // traduzir o dia: "Sunday" -> chave "sunday"
+  const dayKey = today.toLowerCase();
+  const translatedDay = t(dayKey);
+
   return (
     <div className={styles.container}>
       <div className={styles.left}>
-        <h3 className={styles.title}>Today's tasks</h3>
-        <span className={styles.day}>{today}</span>
+        <h3 className={styles.title}>{t('todayTasks')}</h3>
+        <span className={styles.day}>{translatedDay}</span>
       </div>
 
       {total > 0 ? (
@@ -71,7 +76,7 @@ export default function TodayTasks({ tasks }: Props) {
           )}
         </div>
       ) : (
-        <span className={styles.empty}>No tasks for today</span>
+        <span className={styles.empty}>{t('noTasksToday')}</span>
       )}
     </div>
   )
