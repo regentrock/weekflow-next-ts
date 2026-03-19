@@ -12,7 +12,10 @@ export default function Footer() {
       <div className={styles.container}>
         <div className={styles.content}>
           <div>
-            <h3 className={styles.logo}>WeekFlow</h3>
+            <div className={styles.logo}>
+              <img src="/transparent-logo-icon.png"/>
+              <h3 className={styles.logoText}>WeekFlow</h3>
+            </div>
             <p className={styles.copyright}>
               © {currentYear} WeekFlow. {t('rights')}
             </p>

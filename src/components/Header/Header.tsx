@@ -18,11 +18,9 @@ export default function Header({ onAddTaskClick }: Props) {
   return (
     <header className={styles.header}>
       <div className={styles.logoContainer}>
-        <Image
+        <img
           src="/transparent-logo-icon.png"
           alt="WeekFlow Logo"
-          width={32}
-          height={32}
           className={styles.logoImage}
         />
         <h1 className={styles.logoText}>

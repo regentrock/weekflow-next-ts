@@ -7,8 +7,8 @@ export function generateMetadata(): Metadata {
 
   return {
     icons: {
-      icon: '/transparent-logo-icon.png',
-      shortcut: '/transparent-logo-icon.png',
+      icon: '/logo-icon-meta.png',
+      shortcut: '/logo-icon-meta.png',
     },
     title: `WeekFlow | ${day}`,
     description: "Verify your daily tasks.",

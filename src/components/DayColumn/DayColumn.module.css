@@ -22,7 +22,7 @@
 }
 
 .floatingBtn {
-  display: none;
+  display: none !important;
   background-color: var(--primary);
   color: #fff;
   border: none;
@@ -165,7 +165,7 @@
   }
 
 .floatingBtn{
-  display: block;
+  display: block !important;
   position: fixed;
 }
 

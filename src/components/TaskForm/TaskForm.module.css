@@ -16,7 +16,7 @@
 }
 
 .formContainer {
-  background: white;
+  background: var(--bg-card);
   width: 100%;
   max-width: 480px;
   border-radius: var(--radius-lg);
@@ -129,11 +129,12 @@
 
 .actions button[type="button"] {
   background: white;
-  color: var(--gray-600);
+  color: var(--gray-200);
   border: 1px solid var(--gray-300);
 }
 
 .actions button[type="button"]:hover {
+  color: var(--gray-700);
   background: var(--gray-50);
   border-color: var(--gray-400);
 }
