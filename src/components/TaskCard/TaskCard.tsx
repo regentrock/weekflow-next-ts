@@ -1,11 +1,8 @@
-// TaskCard.tsx
 "use client"
 
 import { useState } from "react"
 import { Task } from "@/types/task"
 import styles from "./TaskCard.module.css"
-import { useSortable } from '@dnd-kit/sortable'
-import { CSS } from '@dnd-kit/utilities'
 import { useLanguage } from "@/contexts/LanguageContext"
 
 type Props = {
@@ -18,22 +15,6 @@ type Props = {
 export default function TaskCard({ task, toggleTask, deleteTask, onEdit }: Props) {
   const { t } = useLanguage();
   const [menuOpen, setMenuOpen] = useState(false)
-
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging
-  } = useSortable({ id: task.id })
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    opacity: isDragging ? 0.5 : 1,
-    cursor: isDragging ? 'grabbing' : 'grab'
-  }
 
   const formatTime = (minutes: number): string => {
     if (minutes < 60) return `${minutes}min`
@@ -49,13 +30,7 @@ export default function TaskCard({ task, toggleTask, deleteTask, onEdit }: Props
   }
 
   return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      {...attributes}
-      {...listeners}
-      className={styles.card}
-    >
+    <div className={styles.card}>
       <div className={styles.header}>
         <div className={styles.top}>
           <input
@@ -80,7 +55,6 @@ export default function TaskCard({ task, toggleTask, deleteTask, onEdit }: Props
             e.stopPropagation()
             setMenuOpen(!menuOpen)
           }}
-          aria-label="Opções da tarefa"
         >
           ⋮
         </button>
@@ -94,10 +68,7 @@ export default function TaskCard({ task, toggleTask, deleteTask, onEdit }: Props
 
       {menuOpen && (
         <div className={styles.menu}>
-          <button
-            className={styles.editBtn}
-            onClick={handleEdit}
-          >
+          <button className={styles.editBtn} onClick={handleEdit}>
             {t('edit')}
           </button>
           <button

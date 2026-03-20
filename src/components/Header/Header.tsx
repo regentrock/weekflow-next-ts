@@ -18,10 +18,10 @@ export default function Header({ onAddTaskClick }: Props) {
   return (
     <header className={styles.header}>
       <div className={styles.logoContainer}>
-        <img
+        <Image
           src="/transparent-logo-icon.png"
-          alt="WeekFlow Logo"
           className={styles.logoImage}
+          alt="WeekFlow"
         />
         <h1 className={styles.logoText}>
           <span>Week</span>Flow

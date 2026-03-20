@@ -10,8 +10,7 @@ type Props = {
   task: Task;
   toggleTask: (id: string) => void;
   deleteTask: (id: string) => void;
-  onEdit: (task: Task) => void; // nova prop
-  isDragging?: boolean;
+  onEdit: (task: Task) => void;
 };
 
 export default function SortableTaskCard({
@@ -19,8 +18,7 @@ export default function SortableTaskCard({
   task,
   toggleTask,
   deleteTask,
-  onEdit,
-  isDragging
+  onEdit
 }: Props) {
   const {
     attributes,
@@ -28,17 +26,18 @@ export default function SortableTaskCard({
     setNodeRef,
     transform,
     transition,
-    isDragging: dndIsDragging
+    isDragging
   } = useSortable({ id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    opacity: dndIsDragging ? 0.5 : 1,
-    scale: dndIsDragging ? 1.02 : 1,
-    boxShadow: dndIsDragging ? "var(--shadow-lg)" : "var(--shadow-sm)",
-    zIndex: dndIsDragging ? 999 : "auto",
-    cursor: dndIsDragging ? "grabbing" : "grab"
+    opacity: isDragging ? 0.5 : 1,
+    scale: isDragging ? 1.02 : 1,
+    boxShadow: isDragging ? "var(--shadow-lg)" : "var(--shadow-sm)",
+    zIndex: isDragging ? 999 : "auto",
+    cursor: isDragging ? "grabbing" : "grab",
+    touchAction: "none" as const // 🔥 ESSENCIAL PARA MOBILE
   };
 
   return (

@@ -5,27 +5,24 @@ import { useState, useEffect } from 'react';
 export type Theme = 'light' | 'dark';
 
 export function useTheme() {
-  const [theme, setTheme] = useState<Theme>('light');
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("theme") as Theme | null;
+      if (saved) return saved;
 
-  useEffect(() => {
-    // Verificar preferência salva no localStorage
-    const savedTheme = localStorage.getItem('theme') as Theme | null;
-    if (savedTheme) {
-      setTheme(savedTheme);
-    } else {
-      // Verificar preferência do sistema
-      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setTheme(systemPrefersDark ? 'dark' : 'light');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      return prefersDark ? "dark" : "light";
     }
-  }, []);
+    return "light";
+  });
 
   useEffect(() => {
-    // Aplicar classe dark-mode ao elemento html
     if (theme === 'dark') {
       document.documentElement.classList.add('dark-mode');
     } else {
       document.documentElement.classList.remove('dark-mode');
     }
+
     localStorage.setItem('theme', theme);
   }, [theme]);
 

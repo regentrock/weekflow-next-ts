@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image"
 import styles from "./Footer.module.css"
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -13,7 +14,7 @@ export default function Footer() {
         <div className={styles.content}>
           <div>
             <div className={styles.logo}>
-              <img src="/transparent-logo-icon.png"/>
+              <Image src="/transparent-logo-icon.png" alt="WeekFlow"/>
               <h3 className={styles.logoText}>WeekFlow</h3>
             </div>
             <p className={styles.copyright}>

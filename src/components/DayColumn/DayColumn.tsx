@@ -8,14 +8,15 @@ import {
   TouchSensor,
   useSensor,
   useSensors,
-  DragEndEvent,
-  DragStartEvent
+  DragEndEvent
 } from "@dnd-kit/core";
+
 import {
   SortableContext,
   sortableKeyboardCoordinates,
   verticalListSortingStrategy
 } from "@dnd-kit/sortable";
+
 import { Task, Day } from "@/types/task";
 import SortableTaskCard from "../TaskCard/SortableTaskCard";
 import styles from "./DayColumn.module.css";
@@ -25,13 +26,13 @@ import { useLanguage } from "@/contexts/LanguageContext";
 type FilterStatus = "all" | "active" | "completed";
 
 type Props = {
-  day: Day
-  tasks: Task[]
-  toggleTask: (id: string) => void
-  deleteTask: (id: string) => void
-  reorderTasks: (activeId: string, overId: string, day: Day) => void
-  onEditTask: (task: Task) => void
-  onAddTaskClick: () => void
+  day: Day;
+  tasks: Task[];
+  toggleTask: (id: string) => void;
+  deleteTask: (id: string) => void;
+  reorderTasks: (activeId: string, overId: string, day: Day) => void;
+  onEditTask: (task: Task) => void;
+  onAddTaskClick: () => void;
 };
 
 export default function DayColumn({
@@ -44,7 +45,6 @@ export default function DayColumn({
   onAddTaskClick
 }: Props) {
   const { t } = useLanguage();
-  const [activeId, setActiveId] = useState<string | null>(null);
   const [filter, setFilter] = useState<FilterStatus>("all");
 
   const sensors = useSensors(
@@ -65,16 +65,14 @@ export default function DayColumn({
     return true;
   });
 
-  const sortedTasks = [...filteredTasks].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
-
-  function handleDragStart(event: DragStartEvent) {
-    setActiveId(event.active.id.toString());
-  }
+  const sortedTasks = [...filteredTasks].sort(
+    (a, b) => (a.order ?? 0) - (b.order ?? 0)
+  );
 
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
-    setActiveId(null);
     if (!over) return;
+
     if (active.id !== over.id) {
       reorderTasks(active.id.toString(), over.id.toString(), day);
     }
@@ -86,12 +84,14 @@ export default function DayColumn({
     <div className={styles.column}>
       <div className={styles.header}>
         <h2 className={styles.title}>
-
-           {sortedTasks.length > 0 && (
-              <button className={styles.floatingBtn} onClick={onAddTaskClick}>
-                +
-              </button>
-            )}
+          {sortedTasks.length > 0 && (
+            <button
+              className={styles.floatingBtn}
+              onClick={onAddTaskClick}
+            >
+              +
+            </button>
+          )}
 
           {translatedDay}
           <span className={styles.count}>{tasks.length}</span>
@@ -99,22 +99,30 @@ export default function DayColumn({
 
         <div className={styles.filterBar}>
           <button
-            className={`${styles.filterBtn} ${filter === "all" ? styles.activeFilter : ""}`}
+            className={`${styles.filterBtn} ${
+              filter === "all" ? styles.activeFilter : ""
+            }`}
             onClick={() => setFilter("all")}
           >
-            {t('all')}
+            {t("all")}
           </button>
+
           <button
-            className={`${styles.filterBtn} ${filter === "active" ? styles.activeFilter : ""}`}
+            className={`${styles.filterBtn} ${
+              filter === "active" ? styles.activeFilter : ""
+            }`}
             onClick={() => setFilter("active")}
           >
-            {t('active')}
+            {t("active")}
           </button>
+
           <button
-            className={`${styles.filterBtn} ${filter === "completed" ? styles.activeFilter : ""}`}
+            className={`${styles.filterBtn} ${
+              filter === "completed" ? styles.activeFilter : ""
+            }`}
             onClick={() => setFilter("completed")}
           >
-            {t('completed')}
+            {t("completed")}
           </button>
         </div>
       </div>
@@ -122,7 +130,6 @@ export default function DayColumn({
       <DndContext
         sensors={sensors}
         collisionDetection={closestCorners}
-        onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
       >
         <SortableContext
@@ -132,9 +139,13 @@ export default function DayColumn({
           <div className={styles.tasks}>
             {sortedTasks.length === 0 ? (
               <>
-                <p className={styles.empty}>{t('noTasks')}</p>
-                <button className={styles.addTaskBtn} onClick={onAddTaskClick}>
-                  {t('addTaskBtn')}
+                <p className={styles.empty}>{t("noTasks")}</p>
+
+                <button
+                  className={styles.addTaskBtn}
+                  onClick={onAddTaskClick}
+                >
+                  {t("addTaskBtn")}
                 </button>
               </>
             ) : (
@@ -146,7 +157,6 @@ export default function DayColumn({
                   toggleTask={toggleTask}
                   deleteTask={deleteTask}
                   onEdit={onEditTask}
-                  isDragging={activeId === task.id}
                 />
               ))
             )}

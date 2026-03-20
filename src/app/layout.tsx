@@ -1,27 +1,32 @@
-import type { Metadata } from "next"
-import "./globals.css"
+import type { Metadata } from "next";
+import "./globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import ServiceWorkerRegister from "./ServiceWorkerRegister";
 
-export function generateMetadata(): Metadata {
-  const day = new Date().toLocaleDateString("en-us", { weekday: "long" });
+export const metadata: Metadata = {
+  title: "WeekFlow",
+  description: "Verify your daily tasks.",
+  manifest: "/manifest.json",
+  icons: {
+    icon: "/logo-icon-meta.png",
+    shortcut: "/logo-icon-meta.png",
+  },
+};
 
-  return {
-    icons: {
-      icon: '/logo-icon-meta.png',
-      shortcut: '/logo-icon-meta.png',
-    },
-    title: `WeekFlow | ${day}`,
-    description: "Verify your daily tasks.",
-  };
+export const viewport = {
+  themeColor: "#1E56A0",
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body>
-        <LanguageProvider>
-          {children}
-        </LanguageProvider>
+        <ServiceWorkerRegister />
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
   );
