@@ -27,7 +27,7 @@ O projeto foi desenvolvido com foco em usabilidade, componentização e manipula
 
 ---
 
-## 🛠️ Tecnologias utilizadas
+## Tecnologias utilizadas
 
 * Next.js
 * TypeScript
