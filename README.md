@@ -23,7 +23,8 @@ O projeto foi desenvolvido com foco em usabilidade, componentização e manipula
 * Filtros de visualização
 * Persistência de dados (localStorage)
 * Interface responsiva
-* Versão de App disponível para download, utilizando PWA
+* Aplicação disponível para download, utilizando PWA
+* Opções definidas pelo usuário entre: modo claro/escuro, e linguagens entre inglês/português
 
 ---
 
