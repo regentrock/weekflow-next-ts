@@ -1,36 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# WeekFlow - Gerenciador de Tarefas Semanais
 
-## Getting Started
+Aplicação web moderna para gerenciamento de tarefas com foco em organização semanal, produtividade e experiência do usuário.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Sobre o projeto
+
+O **WeekFlow** é um gerenciador de tarefas que permite organizar atividades ao longo da semana de forma visual e intuitiva.
+
+Diferente de listas tradicionais, o sistema utiliza uma estrutura baseada em dias da semana, permitindo ao usuário distribuir tarefas com clareza e manter controle sobre sua rotina.
+
+O projeto foi desenvolvido com foco em usabilidade, componentização e manipulação de estados complexos em Next.
+
+---
+
+## Funcionalidades
+
+* Criar, editar e excluir tarefas
+* Organização por dias da semana
+* Drag and drop entre cards para reorganizá-los entre si
+* Marcar tarefas como concluídas
+* Filtros de visualização
+* Persistência de dados (localStorage)
+* Interface responsiva
+* Versão de App disponível para download, utilizando PWA
+
+---
+
+## 🛠️ Tecnologias utilizadas
+
+* Next.js
+* TypeScript
+* CSS Modules
+* Dnd-kit (drag and drop)
+* Context API
+* Git & GitHub
+* PWA
+
+---
+
+## Como rodar o projeto
+
+* acesse o seguinte link para visualizar o projeto:
+https://weekflow-next-ts.vercel.app/
+
+ou
+
+1. Clone o repositório:
+
+```bash id="f3k8s1"
+git clone https://github.com/regentrock/weekflow
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Acesse a pasta do projeto:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash id="x8d2la"
+cd weekflow
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. Instale as dependências:
 
-## Learn More
+```bash id="p9s3mq"
+npm install
+```
 
-To learn more about Next.js, take a look at the following resources:
+4. Rode o projeto:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash id="j2k4vn"
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+5. Acesse no navegador:
 
-## Deploy on Vercel
+```bash id="r7c1yb"
+http://localhost:3000
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Arquitetura e decisões técnicas
+
+* Uso de **Context API** para gerenciamento global de estado
+* Separação de componentes para facilitar reutilização
+* Implementação de **drag-and-drop com Dnd-kit** para melhor performance
+* Persistência com **localStorage**, evitando necessidade de backend
+
+---
+
+## Autor
+
+Desenvolvido por Ângelo David
+🔗 https://github.com/regentrock
+
