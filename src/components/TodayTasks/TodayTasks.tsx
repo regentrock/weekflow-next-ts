@@ -40,7 +40,6 @@ export default function TodayTasks({ tasks }: Props) {
     return `${hours}h${remainingMinutes}`
   }
 
-  // traduzir o dia: "Sunday" -> chave "sunday"
   const dayKey = today.toLowerCase();
   const translatedDay = t(dayKey);
 

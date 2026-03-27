@@ -21,6 +21,20 @@
   opacity: 0.9;
 }
 
+.dragHandle {
+  cursor: grab;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  user-select: none;
+  font-size: 1.2rem;
+  color: var(--text-tertiary);
+}
+
+.dragHandle:active {
+  cursor: grabbing;
+}
+
 .header {
   display: flex;
   justify-content: space-between;

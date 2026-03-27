@@ -35,18 +35,17 @@ export default function SortableTaskCard({
     opacity: isDragging ? 0.5 : 1,
     scale: isDragging ? 1.02 : 1,
     boxShadow: isDragging ? "var(--shadow-lg)" : "var(--shadow-sm)",
-    zIndex: isDragging ? 999 : "auto",
-    cursor: isDragging ? "grabbing" : "grab",
-    touchAction: "none" as const // 🔥 ESSENCIAL PARA MOBILE
+    zIndex: isDragging ? 999 : "auto"
   };
 
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+    <div ref={setNodeRef} style={style}>
       <TaskCard
         task={task}
         toggleTask={toggleTask}
         deleteTask={deleteTask}
         onEdit={onEdit}
+        dragHandleProps={{ ...attributes, ...listeners }}
       />
     </div>
   );

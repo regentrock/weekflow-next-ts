@@ -35,7 +35,6 @@ export default function TaskForm({ addTask, onCancel, editingTask }: Props) {
     editingTask?.priority || "medium"
   );
 
-  // 🔥 sem state desnecessário
   const completed = editingTask?.completed || false;
 
   const [hours, setHours] = useState(() =>
@@ -90,7 +89,7 @@ export default function TaskForm({ addTask, onCancel, editingTask }: Props) {
 
   return (
     <div
-      key={editingTask?.id || "new"} // 🔥 reseta o form automaticamente
+      key={editingTask?.id || "new"}
       className={styles.overlay}
       onClick={handleOverlayClick}
       onKeyDown={handleKeyDown}
@@ -151,20 +150,25 @@ export default function TaskForm({ addTask, onCancel, editingTask }: Props) {
             </select>
           </div>
 
-          <div className={styles.row}>
-            <input
-              type="number"
-              value={hours}
-              onChange={(e) => setHours(Number(e.target.value))}
-              min={0}
-            />
-            <input
-              type="number"
-              value={minutes}
-              onChange={(e) => setMinutes(Number(e.target.value))}
-              min={0}
-              max={59}
-            />
+          <div className={styles.field}>
+            <label>{t("hours")}</label>
+            <div className={styles.row}>
+              <input
+                type="number"
+                value={hours}
+                onChange={(e) => setHours(Number(e.target.value))}
+                min={0}
+                placeholder={t("hours")}
+              />
+              <input
+                type="number"
+                value={minutes}
+                onChange={(e) => setMinutes(Number(e.target.value))}
+                min={0}
+                max={59}
+                placeholder={t("minutes")}
+              />
+            </div>
           </div>
 
           <div className={styles.actions}>

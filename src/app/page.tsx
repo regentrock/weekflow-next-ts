@@ -1,10 +1,11 @@
 "use client"
 
 import { useState } from "react"
+import dynamic from "next/dynamic"
 
-import Header from "@/components/Header/Header"
-import Board from "@/components/Board/Board"
-import Footer from "@/components/Footer/Footer"
+const Header = dynamic(() => import("@/components/Header/Header"), { ssr: false })
+const Board = dynamic(() => import("@/components/Board/Board"), { ssr: false })
+const Footer = dynamic(() => import("@/components/Footer/Footer"), { ssr: false })
 
 export default function Home() {
   const [isFormOpen, setIsFormOpen] = useState(false)
@@ -12,11 +13,13 @@ export default function Home() {
   return (
     <main>
       <Header onAddTaskClick={() => setIsFormOpen(true)} />
+
       <Board
         isFormOpen={isFormOpen}
         closeForm={() => setIsFormOpen(false)}
-        onOpenForm={() => setIsFormOpen(true)} // nova prop para abrir o form
+        onOpenForm={() => setIsFormOpen(true)}
       />
+
       <Footer />
     </main>
   )

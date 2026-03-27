@@ -14,7 +14,7 @@ export default function Footer() {
         <div className={styles.content}>
           <div>
             <div className={styles.logo}>
-              <Image src="/transparent-logo-icon.png" alt="WeekFlow"/>
+              <Image src="/transparent-logo-icon.png" alt="WeekFlow" width={50} height={50}/>
               <h3 className={styles.logoText}>WeekFlow</h3>
             </div>
             <p className={styles.copyright}>

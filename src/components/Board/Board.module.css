@@ -27,7 +27,6 @@
   background: transparent;
 }
 
-/* Estilização da scrollbar (mantém) */
 .containerRight {
   scrollbar-width: thin;
   scrollbar-color: var(--gray-400) var(--gray-100);

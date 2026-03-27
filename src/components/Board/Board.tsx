@@ -59,9 +59,8 @@ export default function Board({ isFormOpen, closeForm, onOpenForm }: Props) {
     setEditingTask(null)
   }
 
-  // Para os dias na navegação, usamos as abreviações traduzidas
   const dayAbbr = (day: Day) => {
-    const key = day.slice(0,3).toLowerCase(); // "mon", "tue", etc.
+    const key = day.slice(0,3).toLowerCase();
     return t(key);
   };
 

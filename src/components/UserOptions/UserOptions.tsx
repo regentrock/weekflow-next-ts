@@ -15,7 +15,6 @@ export default function UserOptions({ isOpen, onClose }: Props) {
   const { language, setLanguage, t } = useLanguage();
   const menuRef = useRef<HTMLDivElement>(null);
 
-  // Fechar ao clicar fora
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {

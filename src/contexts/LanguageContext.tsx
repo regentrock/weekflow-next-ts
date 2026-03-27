@@ -125,7 +125,6 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
-  // ✅ CORREÇÃO PRINCIPAL: lazy initialization (sem useEffect)
   const [language, setLanguage] = useState<Language>(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("language");
@@ -134,7 +133,6 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     return "en";
   });
 
-  // ✅ Apenas sincroniza (sem setState problemático)
   useEffect(() => {
     localStorage.setItem("language", language);
   }, [language]);

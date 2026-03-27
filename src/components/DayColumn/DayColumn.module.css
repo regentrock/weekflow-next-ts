@@ -40,7 +40,7 @@
   bottom: 2rem;
   right: 2rem;
   z-index: 1000;
-  line-height: 1; /* Garante que o texto não tenha altura extra */
+  line-height: 1;
 }
 
 .floatingBtn:hover {

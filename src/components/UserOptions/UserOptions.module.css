@@ -10,7 +10,7 @@
 
 .menu {
   position: absolute;
-  top: 70px; /* ajuste conforme altura do header */
+  top: 70px;
   right: 1.5rem;
   background: var(--bg-card);
   border: 1px solid var(--border-color);

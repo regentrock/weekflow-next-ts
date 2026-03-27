@@ -22,6 +22,8 @@ export default function Header({ onAddTaskClick }: Props) {
           src="/transparent-logo-icon.png"
           className={styles.logoImage}
           alt="WeekFlow"
+          width={50}
+          height={50}
         />
         <h1 className={styles.logoText}>
           <span>Week</span>Flow

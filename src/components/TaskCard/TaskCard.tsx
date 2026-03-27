@@ -10,9 +10,16 @@ type Props = {
   toggleTask: (id: string) => void
   deleteTask: (id: string) => void
   onEdit: (task: Task) => void
+  dragHandleProps?: React.HTMLAttributes<HTMLDivElement>
 }
 
-export default function TaskCard({ task, toggleTask, deleteTask, onEdit }: Props) {
+export default function TaskCard({
+  task,
+  toggleTask,
+  deleteTask,
+  onEdit,
+  dragHandleProps
+}: Props) {
   const { t } = useLanguage();
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -33,6 +40,11 @@ export default function TaskCard({ task, toggleTask, deleteTask, onEdit }: Props
     <div className={styles.card}>
       <div className={styles.header}>
         <div className={styles.top}>
+          
+          <div className={styles.dragHandle} {...dragHandleProps}>
+            ≡
+          </div>
+
           <input
             type="checkbox"
             checked={task.completed}
@@ -41,6 +53,7 @@ export default function TaskCard({ task, toggleTask, deleteTask, onEdit }: Props
             id={`task-${task.id}`}
             onClick={(e) => e.stopPropagation()}
           />
+
           <label
             htmlFor={`task-${task.id}`}
             className={`${styles.title} ${task.completed ? styles.done : ""}`}
